@@ -5,7 +5,7 @@ from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 import argparse
 
-classes = ['ore carrier', 'fishing boat', 'passenger ship', 'general cargo ship', 'bulk cargo carrier', 'container ship']
+classes = ['ignored regions', 'pedestrian', 'people', 'bicycle', 'car', 'van', 'truck', 'tricycle', 'awning-tricycle', 'bus', 'motor', 'others']
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--image_path', default='',type=str, help="path of images")
