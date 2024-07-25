@@ -25,10 +25,7 @@ name_dict = {'0': 'ignored regions', '1': 'pedestrian', '2': 'people',
              '10': 'motor', '11': 'others'}
 
 
-def transfer_to_xml(pic, txt, file_name):
-    xml_save_path = 'dataset/visdrone/VisDrone2019-DET-val/voc'  # 生成的xml文件存储的文件夹
-    if not os.path.exists(xml_save_path):
-        os.mkdir(xml_save_path)
+def transfer_to_xml(pic, txt, file_name, xml_save_path):
 
     img = cv2.imread(pic)
     img_w = img.shape[1]
@@ -121,16 +118,19 @@ def transfer_to_xml(pic, txt, file_name):
 if __name__ == '__main__':
     t = time.time()
     print('Transfer .txt to .xml...ing....')
-    txt_folder = 'dataset/visdrone/VisDrone2019-DET-val/annotations'  # visdrone txt标签文件夹
+    txt_folder = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/annotations'  # visdrone txt标签文件夹
     txt_file = os.listdir(txt_folder)
-    img_folder = 'dataset/visdrone/VisDrone2019-DET-val/images'  # visdrone 照片所在文件夹
+    img_folder = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'  # visdrone 照片所在文件夹
+    xml_save_path = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'  # 生成的xml文件存储的文件夹
+    if not os.path.exists(xml_save_path):
+        os.mkdir(xml_save_path)
 
     for txt in txt_file:
         txt_full_path = os.path.join(txt_folder, txt)
         img_full_path = os.path.join(img_folder, txt.split('.')[0] + '.jpg')
 
         try:
-            transfer_to_xml(img_full_path, txt_full_path, txt.split('.')[0])
+            transfer_to_xml(img_full_path, txt_full_path, txt.split('.')[0], xml_save_path)
         except Exception as e:
             print(e)
 
