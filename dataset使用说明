@@ -1,0 +1,11 @@
+visdrone数据集：
+数据集原始文件存储在visdrone中
+visdrone数据集：
+    -- VisDrone2019-DET-train  # 存储visdrone标签和voc格式标签，执行visdrone_to_voc.py脚本
+        --annotation
+        --voc
+    -- VisDrone2019-DET-val  # 存储visdrone标签和voc格式标签,执行visdrone_to_voc.py脚本
+        --annotation
+        --voc
+        
+dota数据集：
