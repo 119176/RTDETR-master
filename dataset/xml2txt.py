@@ -4,27 +4,27 @@ import numpy as np
 from os import listdir
 from os.path import join
 # dota
-# classes = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 
-#               'small-vehicle', 'large-vehicle', 'ship', 
-#               'tennis-court', 'basketball-court',  
-#               'storage-tank', 'soccer-ball-field', 
-#               'roundabout', 'harbor', 
-#               'swimming-pool', 'helicopter', 'container-crane']
+classes = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 
+              'small-vehicle', 'large-vehicle', 'ship', 
+              'tennis-court', 'basketball-court',  
+              'storage-tank', 'soccer-ball-field', 
+              'roundabout', 'harbor', 
+              'swimming-pool', 'helicopter', 'container-crane']
 
-# name_dict = {'0': 'plane', '1': 'baseball-diamond', '2': 'bridge',
-#              '3': 'ground-track-field', '4': 'small-vehicle', '5': 'large-vehicle', '6': 'ship',
-#              '7': 'tennis-court', '8': 'basketball-court', '9': 'storage-tank',
-#              '10': 'roundabout', '11': 'harbor','12':'swimming-pool', 
-#              '13':"swimming-pool", '14':"helicopter", '15':"container-crane"}
+name_dict = {'0': 'plane', '1': 'baseball-diamond', '2': 'bridge',
+             '3': 'ground-track-field', '4': 'small-vehicle', '5': 'large-vehicle', '6': 'ship',
+             '7': 'tennis-court', '8': 'basketball-court', '9': 'storage-tank',
+             '10': 'roundabout', '11': 'harbor','12':'swimming-pool', 
+             '13':"swimming-pool", '14':"helicopter", '15':"container-crane"}
 # visdrone
-classes = ['ignored regions', 'pedestrian', 'people', 'bicycle',
-            'car', 'van', 'truck', 'tricycle', 'awning-tricycle',
-              'bus', 'motor', 'others']
-name_dict = {
-    '0': 'ignored regions', '1': 'pedestrian', '2': 'people', '3': 'bicycle',
-            '4': 'car', '5': 'van', '6': 'truck', '7': 'tricycle', '8': 'awning-tricycle',
-              '9': 'bus', '10': 'motor', '11': 'others'
-}
+# classes = ['ignored regions', 'pedestrian', 'people', 'bicycle',
+#             'car', 'van', 'truck', 'tricycle', 'awning-tricycle',
+#               'bus', 'motor', 'others']
+# name_dict = {
+#     '0': 'ignored regions', '1': 'pedestrian', '2': 'people', '3': 'bicycle',
+#             '4': 'car', '5': 'van', '6': 'truck', '7': 'tricycle', '8': 'awning-tricycle',
+#               '9': 'bus', '10': 'motor', '11': 'others'
+# }
 
 
 def convert(size, box):
@@ -70,9 +70,9 @@ def convert_annotation(xmlpath, xmlname):
 
 if __name__ == "__main__":
     postfix = 'jpg'
-    imgpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'
-    xmlpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'
-    txtpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/yolo'
+    imgpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/DOTA/val/voc/img'
+    xmlpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/DOTA/val/voc/xml'
+    txtpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/DOTA/val/voc/yolo'
     
     if not os.path.exists(txtpath):
         os.makedirs(txtpath, exist_ok=True)

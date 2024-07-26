@@ -4,7 +4,7 @@ from xml.dom.minidom import Document
 import numpy as np
 import copy, cv2
 
-def save_to_xml(save_path, im_width, im_height, objects_axis, label_name, name, hbb=True):
+def save_to_xml(save_path, im_width, im_height, objects_axis, label_name, name, hbb=False):
     im_depth = 0
     object_num = len(objects_axis)
     doc = Document()
@@ -144,16 +144,7 @@ def format_label(txt_list):
     for i in txt_list[2:]:  # 处理DOTA v1.0为txt_list[0:]；处理DOTA v1.5改为txt_list[2:]
         format_data.append(
         [int(float(xy)) for xy in i.split(' ')[:8]] + [class_list.index(i.split(' ')[8])]
-        # {'x0': int(i.split(' ')[0]),
-        # 'x1': int(i.split(' ')[2]),
-        # 'x2': int(i.split(' ')[4]),
-        # 'x3': int(i.split(' ')[6]),
-        # 'y1': int(i.split(' ')[1]),
-        # 'y2': int(i.split(' ')[3]),
-        # 'y3': int(i.split(' ')[5]),
-        # 'y4': int(i.split(' ')[7]),
-        # 'class': class_list.index(i.split(' ')[8]) if i.split(' ')[8] in class_list else 0, 
-        # 'difficulty': int(i.split(' ')[9])}
+
         )
         if i.split(' ')[8] not in class_list :
             print ('warning found a new label :', i.split(' ')[8])
@@ -161,7 +152,7 @@ def format_label(txt_list):
     return np.array(format_data)
 
 def clip_image(file_idx, image, boxes_all, width, height):
-    # print ('image shape', image.shape)
+
     if len(boxes_all) > 0:
         shape = image.shape
         for start_h in range(0, shape[0], 256):
@@ -193,12 +184,6 @@ def clip_image(file_idx, image, boxes_all, width, height):
                 box[:, 8] = boxes[:, 8]
                 center_y = 0.25*(box[:, 1] + box[:, 3] + box[:, 5] + box[:, 7])
                 center_x = 0.25*(box[:, 0] + box[:, 2] + box[:, 4] + box[:, 6])
-                # print('center_y', center_y)
-                # print('center_x', center_x)
-                # print ('boxes', boxes)
-                # print ('boxes_all', boxes_all)
-                # print ('top_left_col', top_left_col, 'top_left_row', top_left_row)
-
                 cond1 = np.intersect1d(np.where(center_y[:]>=0 )[0], np.where(center_x[:]>=0 )[0])
                 cond2 = np.intersect1d(np.where(center_y[:] <= (bottom_right_row - top_left_row))[0],
                                         np.where(center_x[:] <= (bottom_right_col - top_left_col))[0])
@@ -208,21 +193,23 @@ def clip_image(file_idx, image, boxes_all, width, height):
                 if len(idx) > 0:
                     name="%s_%04d_%04d.png" % (file_idx, top_left_row, top_left_col)
                     print(name)
-                    xml = os.path.join(save_dir, "%s_%04d_%04d.xml" % (file_idx, top_left_row, top_left_col))
+                    xml = os.path.join(save_dir_xml, "%s_%04d_%04d.xml" % (file_idx, top_left_row, top_left_col))
                     save_to_xml(xml, subImage.shape[1], subImage.shape[0], box[idx, :], class_list, str(name))
-                    # print ('save xml : ', xml)
                     if subImage.shape[0] > 5 and subImage.shape[1] >5:
-                        img = os.path.join(save_dir, 'JPEGImages', "%s_%04d_%04d.png" % (file_idx, top_left_row, top_left_col))
-                        #cv2.imwrite(img, subImage)
+                        img = os.path.join(save_dir_img, "%s_%04d_%04d.png" % (file_idx, top_left_row, top_left_col))
+                        
                         cv2.imwrite(img, cv2.cvtColor(subImage, cv2.COLOR_RGB2BGR))
         
 
 print ('class_list', len(class_list))
-raw_images_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'
-raw_label_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/obb'
-save_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'
-if not os.path.exists(save_dir):
-    os.mkdir(save_dir)
+raw_images_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/DOTA/val/images'
+raw_label_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/DOTA/val/obb'
+save_dir_xml = '/home/class1/work/zhangnan/RTDETR-master/dataset/DOTA/val/voc/xml'
+save_dir_img = '/home/class1/work/zhangnan/RTDETR-master/dataset/DOTA/val/voc/img'
+if not os.path.exists(save_dir_xml):
+    os.mkdir(save_dir_xml)
+if not os.path.exists(save_dir_img):
+    os.mkdir(save_dir_img)
 
 images = [i for i in os.listdir(raw_images_dir) if 'png' in i]
 labels = [i for i in os.listdir(raw_label_dir) if 'txt' in i]
@@ -237,18 +224,8 @@ for idx, img in enumerate(images):
     print (idx, 'read image', img)
     img_data = imageio.imread(os.path.join(raw_images_dir, img))
 
-    # if len(img_data.shape) == 2:
-        # img_data = img_data[:, :, np.newaxis]
-        # print ('find gray image')
 
     txt_data = open(os.path.join(raw_label_dir, img.replace('png', 'txt')), 'r').readlines()
-    # print (idx, len(format_label(txt_data)), img_data.shape)
-    # if max(img_data.shape[:2]) > max_length:
-        # max_length = max(img_data.shape[:2])
-    # if min(img_data.shape[:2]) < min_length:
-        # min_length = min(img_data.shape[:2])
-    # if idx % 50 ==0:
-        # print (idx, len(format_label(txt_data)), img_data.shape)
-        # print (idx, 'min_length', min_length, 'max_length', max_length)
+
     box = format_label(txt_data)
     clip_image(img.strip('.png'), img_data, box, 640, 640)
