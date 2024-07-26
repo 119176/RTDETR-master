@@ -1,11 +1,64 @@
 visdrone数据集：
 数据集原始文件存储在visdrone中
+第一步，将visdrone转换成voc：
 visdrone数据集：
     -- VisDrone2019-DET-train  # 存储visdrone标签和voc格式标签，执行visdrone_to_voc.py脚本
         --annotation
         --voc
+        --images
     -- VisDrone2019-DET-val  # 存储visdrone标签和voc格式标签,执行visdrone_to_voc.py脚本
         --annotation
         --voc
-        
+        --images
+    txt_folder = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/annotations'  # visdrone txt标签文件夹
+    img_folder = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'  # visdrone 照片所在文件夹
+    xml_save_path = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'  # 生成的xml文件存储的文件夹
+
+第二步：将voc转换成yolo：
+使用xml2txt.py脚本
+visdrone数据集：
+    -- VisDrone2019-DET-train  # 存储visdrone标签和voc格式标签，执行visdrone_to_voc.py脚本
+        --annotation
+        --voc
+        --images
+        --yolo
+    -- VisDrone2019-DET-val  # 存储visdrone标签和voc格式标签,执行visdrone_to_voc.py脚本
+        --annotation
+        --voc
+        --images
+        --yolo
+    imgpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'
+    xmlpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'
+    txtpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/yolo'
+
+第三步：将images放入到dataset/images中，将yolo放入dataset/labels中
+    --labels
+        --train
+        --val
+        --test
+    --images中
+        --train
+        --val
+        --test
+类别['ignored regions', 'pedestrian', 'people', 'bicycle', 'car', 'van', 'truck', 'tricycle', 'awning-tricycle', 'bus', 'motor', 'others']
+
 dota数据集：
+数据集原始文件存在DOTA中
+第一步：首先需要切割数据集，使用dota_to_voc.py脚本
+    --DOTA：
+        --train:
+            --images
+            --obb # dota标签
+            --voc # voc标签
+        --val:
+            --images
+            --obb # dota标签
+            --voc # voc标签
+raw_images_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'
+raw_label_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/obb'
+save_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'
+
+第二步：将voc转换成yolo：
+
+
+

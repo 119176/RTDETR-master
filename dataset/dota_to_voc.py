@@ -208,7 +208,7 @@ def clip_image(file_idx, image, boxes_all, width, height):
                 if len(idx) > 0:
                     name="%s_%04d_%04d.png" % (file_idx, top_left_row, top_left_col)
                     print(name)
-                    xml = os.path.join(save_dir, 'Annotations', "%s_%04d_%04d.xml" % (file_idx, top_left_row, top_left_col))
+                    xml = os.path.join(save_dir, "%s_%04d_%04d.xml" % (file_idx, top_left_row, top_left_col))
                     save_to_xml(xml, subImage.shape[1], subImage.shape[0], box[idx, :], class_list, str(name))
                     # print ('save xml : ', xml)
                     if subImage.shape[0] > 5 and subImage.shape[1] >5:
@@ -218,10 +218,11 @@ def clip_image(file_idx, image, boxes_all, width, height):
         
 
 print ('class_list', len(class_list))
-raw_images_dir = '/home/class1/work/zhangnan/RTDETR-main/dataset/DOTA/val/images'
-raw_label_dir = '/home/class1/work/zhangnan/RTDETR-main/dataset/DOTA/val/obb'
-
-save_dir = '/home/class1/work/zhangnan/RTDETR-main/dataset/DOTA/val/voc'
+raw_images_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'
+raw_label_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/obb'
+save_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'
+if not os.path.exists(save_dir):
+    os.mkdir(save_dir)
 
 images = [i for i in os.listdir(raw_images_dir) if 'png' in i]
 labels = [i for i in os.listdir(raw_label_dir) if 'txt' in i]

@@ -119,11 +119,11 @@ if __name__ == '__main__':
     t = time.time()
     print('Transfer .txt to .xml...ing....')
     txt_folder = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/annotations'  # visdrone txt标签文件夹
-    txt_file = os.listdir(txt_folder)
     img_folder = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'  # visdrone 照片所在文件夹
     xml_save_path = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'  # 生成的xml文件存储的文件夹
     if not os.path.exists(xml_save_path):
         os.mkdir(xml_save_path)
+    txt_file = os.listdir(txt_folder)
 
     for txt in txt_file:
         txt_full_path = os.path.join(txt_folder, txt)
