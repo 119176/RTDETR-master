@@ -44,21 +44,43 @@ visdrone数据集：
 
 dota数据集：
 数据集原始文件存在DOTA中
-第一步：首先需要切割数据集，使用dota_to_voc.py脚本
+直接使用脚本dota_yolo.py会自动将dota转换成yolo，注意要使用v2.0
+格式如下
     --DOTA：
-        --train:
-            --images
-            --obb # dota标签
-            --voc # voc标签
-        --val:
-            --images
-            --obb # dota标签
-            --voc # voc标签
-raw_images_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'
-raw_label_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/obb'
-save_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'
-
-第二步：将voc转换成yolo：
+        --images：
+            --train
+            --val
+        --labels：
+            --train_origion
+            --val_origion
+由于DOTA数据集过于大 需要进行分割，运行dataset/split_dota.py
+    --DOTA_split：
+        --images：
+            --train
+            --val
+        --labels：
+            --train
+            --val
+    
+            
+; dota数据集：
+; 数据集原始文件存在DOTA中
+; 第一步：由于原图尺寸太大，首先需要切割数据集，使用dota_to_voc.py脚本
+;     --DOTA：
+;         --train:
+;             --images
+;             --obb # dota标签
+;             --voc # voc标签
+;         --val:
+;             --images
+;             --obb # dota标签
+;             --voc # voc标签
+; raw_images_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'
+; raw_label_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/obb'
+; save_dir = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'
+; 937.0 913.0 921.0 912.0 923.0 874.0 940.0 875.0 small-vehicle 0
+; 边界框的四个顶点坐标
+; 第二步：将空标签的图片删除
 
 
 
