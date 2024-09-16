@@ -1,0 +1,87 @@
+1、ultralytics/cfg/models/rt-detr/rtdetr-DCNV2-Dynamic.yaml
+    使用自研可变形卷积DCNV2-Dynamic改进resnet18-backbone中的BasicBlock.(详细介绍请看百度云视频-MPCA与DCNV2_Dynamic的说明)
+
+2、ultralytics/cfg/models/rt-detr/rtdetr-PACAPN.yaml
+    自研结构, Parallel Atrous Convolution Attention Pyramid Network, PAC-APN
+    1. 并行(上/下)采样分支可为网络提供多条特征提取途径，丰富特征表达的多样性、再结合gate机制对采样后的特征进行特征选择，强化更有意义的特征，抑制冗余或不相关的特征，提升特征表达的有效性。
+    2. PAC模块通过使用具有不同膨胀率的并行空洞卷积，能够有效地提取不同尺度的特征。这使得网络能够捕捉数据中局部和上下文信息，提高其表示复杂模式的能力。
+
+3、 ultralytics/cfg/models/rt-detr/rtdetr-FDPN.yaml
+    自研特征聚焦扩散金字塔网络(Focusing Diffusion Pyramid Network)
+    1. 通过定制的特征聚焦模块与特征扩散机制，能让每个尺度的特征都具有详细的上下文信息，更有利于后续目标的检测与分类。
+    2. 定制的特征聚焦模块可以接受三个尺度的输入，其内部包含一个Inception-Style的模块，其利用一组并行深度卷积来捕获丰富的跨多个尺度的信息。
+    3. 通过扩散机制使具有丰富的上下文信息的特征进行扩散到各个检测尺度.
+
+4、 ultralytics/cfg/models/rt-detr/rtdetr-FDPN-DASI.yaml
+    使用[HCFNet](https://github.com/zhengshuchen/HCFNet)中的Dimension-Aware Selective Integration Module对自研的Focusing Diffusion Pyramid Network再次创新.
+
+5、 ultralytics/cfg/models/rt-detr/rtdetr-RGCSPELAN.yaml
+    自研RepGhostCSPELAN.
+    1. 参考GhostNet中的思想(主流CNN计算的中间特征映射存在广泛的冗余)，采用廉价的操作生成一部分冗余特征图，以此来降低计算量和参数量。
+    2. 舍弃yolov5与yolov8中常用的BottleNeck，为了弥补舍弃残差块所带来的性能损失，在梯度流通分支上使用RepConv，以此来增强特征提取和梯度流通的能力，并且RepConv可以在推理的时候进行融合，一举两得。
+    3. 可以通过缩放因子控制RGCSPELAN的大小，使其可以兼顾小模型和大模型。
+
+6、 ultralytics/cfg/models/rt-detr/rtdetr-iRMB-Cascaded.yaml
+
+    使用[EfficientViT CVPR2023](https://github.com/microsoft/Cream/tree/main/EfficientViT)中的CascadedGroupAttention对[EMO ICCV2023](https://github.com/zhangzjn/EMO)中的iRMB进行二次创新来改进resnet18-backbone中的BasicBlock.(详细介绍请看百度云视频-20231119更新说明)
+
+7、 ultralytics/cfg/models/rt-detr/rtdetr-PConv-Rep.yaml
+
+    使用[RepVGG CVPR2021](https://github.com/DingXiaoH/RepVGG)中的RepConv对[FasterNet CVPR2023](https://github.com/JierunChen/FasterNet)中的PConv进行二次创新后改进resnet18-backbone中的BasicBlock.
+
+8、 ultralytics/cfg/models/rt-detr/rtdetr-Faster-Rep.yaml
+
+    使用[RepVGG CVPR2021](https://github.com/DingXiaoH/RepVGG)中的RepConv对[FasterNet CVPR2023](https://github.com/JierunChen/FasterNet)中的Faster-Block进行二次创新后改进resnet18-backbone中的BasicBlock.
+
+9、 ultralytics/cfg/models/rt-detr/rtdetr-Faster-EMA.yaml
+
+    使用[EMA ICASSP2023](https://arxiv.org/abs/2305.13563v1)对[FasterNet CVPR2023](https://github.com/JierunChen/FasterNet)中的Faster-Block进行二次创新后改进resnet18-backbone中的BasicBlock.
+
+10、 ultralytics/cfg/models/rt-detr/rtdetr-Faster-Rep-EMA.yaml
+    
+    使用[RepVGG CVPR2021](https://github.com/DingXiaoH/RepVGG)中的RepConv和[EMA ICASSP2023](https://arxiv.org/abs/2305.13563v1)对[FasterNet CVPR2023](https://github.com/JierunChen/FasterNet)中的Faster-Block进行二次创新后改进resnet18-backbone中的BasicBlock.
+
+11、 ultralytics/cfg/models/rt-detr/rtdetr-DWRC3-DRB.yaml
+
+    使用[UniRepLKNet](https://github.com/AILab-CVC/UniRepLKNet/tree/main)中的DilatedReparamBlock对[DWRSeg](https://arxiv.org/abs/2212.01173)中的Dilation-wise Residual(DWR)进行二次创新改进rtdetr.
+
+12、 ultralytics/cfg/models/rt-detr/rtdetr-ASF-P2.yaml
+
+    在ultralytics/cfg/models/rt-detr/rtdetr-ASF.yaml的基础上进行二次创新，引入P2检测层并对网络结构进行优化.
+
+13、 ultralytics/cfg/models/rt-detr/rtdetr-AIFI-HiLo.yaml
+
+    使用[LITv2](https://github.com/ziplab/LITv2)中具有提取高低频信息的高效注意力对AIFI进行二次改进.
+
+14、 ultralytics/cfg/models/rt-detr/rtdetr-HSPAN.yaml
+
+    对[MFDS-DETR](https://github.com/JustlfC03/MFDS-DETR)中的HS-FPN进行二次创新后得到HSPAN改进RTDETR中的CCFM.
+
+15、 ultralytics/cfg/models/rt-detr/rtdetr-iRMB-DRB.yaml
+
+    使用[UniRepLKNet](https://github.com/AILab-CVC/UniRepLKNet/tree/main)中的DilatedReparamBlock对[EMO ICCV2023](https://github.com/zhangzjn/EMO)中的iRMB进行二次创新来改进resnet18-backbone中的BasicBlock.
+
+16、 ultralytics/cfg/models/rt-detr/rtdetr-iRMB-SWC.yaml
+
+    使用[shift-wise conv](https://arxiv.org/abs/2401.12736)对[EMO ICCV2023](https://github.com/zhangzjn/EMO)中的iRMB进行二次创新来改进resnet18-backbone中的BasicBlock.
+
+17、 ultralytics/cfg/models/rt-detr/rtdetr-DBBNCSPELAN.yaml
+
+    在rtdetr-RepNCSPELAN.yaml使用[Diverse Branch Block CVPR2021](https://arxiv.org/abs/2103.13425)进行二次创新.(详细介绍请看百度云视频-20240225更新说明)
+
+18、 ultralytics/cfg/models/rt-detr/rtdetr-OREPANCSPELAN.yaml
+
+    在rtdetr-RepNCSPELAN.yaml使用[Online Convolutional Re-parameterization (CVPR2022)](https://github.com/JUGGHM/OREPA_CVPR2022/tree/main)进行二次创新.(详细介绍请看百度云视频-20240225更新说明)
+
+19、 ultralytics/cfg/models/rt-detr/rtdetr-Conv3XCNCSPELAN.yaml
+
+    在rtdetr-RepNCSPELAN.yaml使用[Swift Parameter-free Attention Network](https://github.com/hongyuanyu/SPAN/tree/main)中的Conv3XC进行二次创新.(详细介绍请看百度云视频-20240225更新说明)
+
+20、 ultralytics/cfg/models/rt-detr/rtdetr-CAFMFusion.yaml
+
+    利用具有[HCANet](https://github.com/summitgao/HCANet)中的CAFM，其具有获取全局和局部信息的注意力机制进行二次改进content-guided attention fusion.
+
+ 21、 ultralytics/cfg/models/rt-detr/rtdetr-faster-CGLU.yaml
+
+    使用[TransNeXt CVPR2024](https://github.com/DaiShiResearch/TransNeXt)中的Convolutional GLU对CVPR2023中的FasterNet进行二次创新.
+

@@ -27,9 +27,9 @@ visdrone数据集：
         --voc
         --images
         --yolo
-    imgpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/images'
-    xmlpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/voc'
-    txtpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/test/yolo'
+    imgpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/VisDrone2019-DET-test-dev/images'
+    xmlpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/VisDrone2019-DET-test-dev/voc'
+    txtpath = '/home/class1/work/zhangnan/RTDETR-master/dataset/VisDrone2019-DET-test-dev/yolo'
 
 第三步：将images放入到dataset/images中，将yolo放入dataset/labels中
     --labels
